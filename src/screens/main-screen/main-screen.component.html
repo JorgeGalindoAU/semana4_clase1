@@ -1,0 +1,88 @@
+<!-- Pantalla principal con Bootstrap -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Bienvenido a Mi Aplicación</h1>
+        <p class="lead text-muted">Una plataforma moderna y eficiente desarrollada con Angular 20 y Bootstrap.</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Tarjeta 1 -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <app-title [title]="'Configurar Usuarios'" [color]="'blue'"></app-title>
+                    <p class="card-text">Administra usuarios, roles y permisos de forma intuitiva.</p>
+                    <app-button (onExecute)="showMore()" [title]="'Ver más'" [color]="'blue'"></app-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2 -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <app-title [title]="'Informes'" [color]="'green'"></app-title>
+                    <p class="card-text">Genera informes dinámicos y visualiza métricas clave en tiempo real.</p>
+                    <app-button (onExecute)="explore()" [title]="'Explorar'" [color]="'green'"></app-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 3 -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <app-title [title]="'Preferencias'" [color]="'red'"></app-title>
+                    <p class="card-text">Personaliza las preferencias del sistema y opciones avanzadas.</p>
+                    <app-button (onExecute)="configure()" [title]="'Configurar'" [color]="'red'"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center fw-bold text-primary">Filtros</h2>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col text-center">
+                <app-active-filter [title]="'¿Mostrar inactivos?'"
+                    (active)="showInactiveUsers($event)"></app-active-filter>
+            </div>
+            <div class="col text-center">
+                <app-active-filter [title]="'¿Mostrar externos?'"
+                    (active)="showExternalUsers($event)"></app-active-filter>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            @for (user of users(); track user.id) {
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img [src]="user.avatar" class="card-img-top" [alt]="user.first_name + ' ' + user.last_name" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+                        <p class="card-text">{{ user.email }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-primary w-100">Ver perfil</button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <hr class="my-5">
+    <app-pagination (selectedCount)="receivedNewCount($event)" (selectedPage)="receivedNewPage($event)"
+        [numberOfPages]="this.totalPages()"></app-pagination>
+
+    <footer class="text-center text-muted small">
+        &copy; 2025 Mi Aplicación. Todos los derechos reservados.
+    </footer>
+</div>
