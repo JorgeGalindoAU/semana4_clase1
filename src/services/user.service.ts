@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUserPagination } from '../interfaces/user_pagination.interface';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private ENDPOINT_URL: string = 'https://reqres.in/api/users';
-  private ENDPOINT_API_HEADER: string = 'x-api-key';
-  private ENDPOINT_API_KEY: string = 'reqres-free-v1';
+  private ENDPOINT_URL: string = `${environment.api.url}/api/users`;
+  private ENDPOINT_API_HEADER: string = environment.api.headerName;
+  private ENDPOINT_API_KEY: string = environment.api.apiKey;
 
   private httpClient: HttpClient = inject(HttpClient);
 
