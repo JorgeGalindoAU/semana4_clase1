@@ -3,11 +3,6 @@
         <div class="row justify-content-between">
             <div class="col-auto"><app-go-back-button></app-go-back-button>
             </div>
-            <div class="col-auto">
-                <button class="btn btn-outline-primary">
-                    Guardar
-                </button>
-            </div>
         </div>
     </div>
     <br>
@@ -16,10 +11,57 @@
             <h2 class="text-center fw-bold text-primary">Crear un nuevo usuario</h2>
         </div>
         <br>
-        <div class="row">
-            <div class="col text-center">
-                <p>Trabajando en ello...</p>
+        <form #createForm="ngForm" (ngSubmit)="createUser()">
+            <div class="row">
+                <div class="col-6 mx-auto text-center">
+                    <label for="name" class="form-label">Name</label>
+                    <input [(ngModel)]="userJob.name" #nameField="ngModel" type="text" id="name" name="name"
+                        class="form-control" required minlength="5">
+                    @if (nameField.invalid && (nameField.dirty || nameField.touched)) {
+                    <br>
+                    <div class="alert alert-danger">
+                        @if (nameField.hasError('required')) {
+                        <span>El campo nombre es obligatorio</span>
+                        }
+                        @if (nameField.hasError('minlength')) {
+                        <span>El campo nombre debe tener al menos 5 caracteres</span>
+                        }
+                    </div>
+                    }
+                </div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-6 mx-auto text-center">
+                    <label for="job" class="form-label">Job</label>
+                    <input [(ngModel)]="userJob.job" #jobField="ngModel" type="text" id="job" name="job"
+                        class="form-control" required minlength="10">
+                    @if (jobField.invalid && (jobField.dirty || jobField.touched)) {
+                    <br>
+                    <div class="alert alert-danger">
+                        @if (jobField.hasError('required')) {
+                        <span>El campo nombre es obligatorio</span>
+                        }
+                        @if (jobField.hasError('minlength')) {
+                        <span>El campo nombre debe tener al menos 10 caracteres</span>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div type="submit" class="col-8 mx-auto text-center d-grid">
+                    <button class="btn btn-outline-primary" [disabled]="createForm.invalid">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <h2 class="mb-3">Json User</h2>
+        <div class="mt-4">
+            <pre>{{ userJob | json }}</pre>
         </div>
     </div>
 </div>

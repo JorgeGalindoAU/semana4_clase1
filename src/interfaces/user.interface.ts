@@ -5,3 +5,15 @@ export interface IUser {
     last_name: string;
     avatar: string;
 }
+
+export interface IUserJob {
+    name: string;
+    job: string;
+}
+
+export interface IUserCreated {
+    id: number;
+    name: string;
+    job: string;
+    createdAt: Date;
+}
