@@ -6,6 +6,24 @@
         </div>
     </div>
     <br>
+    @if(isCreated())
+    {
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center fw-bold text-primary">Crear un nuevo usuario</h2>
+        </div>
+        <br>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{this.userCreated()?.name ?? 'NO USER'}}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{this.userCreated()?.job}}</h6>
+                <p class="card-text">Identificador: {{this.userCreated()?.id}}</p>
+                <p class="card-text">{{this.userCreated()?.createdAt | date:'MMM d, y, HH:mm:ss'}}</p>
+            </div>
+        </div>
+    </div>
+    } @else {
+
     <div class="container">
         <div class="row">
             <h2 class="text-center fw-bold text-primary">Crear un nuevo usuario</h2>
@@ -16,7 +34,7 @@
                 <div class="col-6 mx-auto text-center">
                     <label for="name" class="form-label">Name</label>
                     <input [(ngModel)]="userJob.name" #nameField="ngModel" type="text" id="name" name="name"
-                        class="form-control" required minlength="5">
+                        class="form-control" required minlength="5" [disabled]="isLoading()">
                     @if (nameField.invalid && (nameField.dirty || nameField.touched)) {
                     <br>
                     <div class="alert alert-danger">
@@ -35,7 +53,7 @@
                 <div class="col-6 mx-auto text-center">
                     <label for="job" class="form-label">Job</label>
                     <input [(ngModel)]="userJob.job" #jobField="ngModel" type="text" id="job" name="job"
-                        class="form-control" required minlength="10">
+                        class="form-control" required minlength="10" [disabled]="isLoading()">
                     @if (jobField.invalid && (jobField.dirty || jobField.touched)) {
                     <br>
                     <div class="alert alert-danger">
@@ -52,16 +70,18 @@
             <hr>
             <div class="row">
                 <div type="submit" class="col-8 mx-auto text-center d-grid">
-                    <button class="btn btn-outline-primary" [disabled]="createForm.invalid">
-                        Guardar
+                    <button class="btn btn-outline-primary" [disabled]="createForm.invalid || isLoading()">
+                        @if(isLoading()) {
+                        <div class="spinner-border text-primary" role="status">
+                        </div>
+                        } @else {
+                        <span>Guardar</span>
+                        }
                     </button>
                 </div>
             </div>
         </form>
-        <hr>
-        <h2 class="mb-3">Json User</h2>
-        <div class="mt-4">
-            <pre>{{ userJob | json }}</pre>
-        </div>
     </div>
+    }
+
 </div>

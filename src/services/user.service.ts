@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUserPagination } from '../interfaces/user_pagination.interface';
 import { environment } from '../environments/environment';
+import { IUserCreated, IUserJob } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,13 @@ export class UserService {
         [this.ENDPOINT_API_HEADER]: this.ENDPOINT_API_KEY,
       },
     }) as Observable<IUserPagination>;
+  }
+
+  createUser(user: IUserJob): Observable<IUserCreated> {
+    return this.httpClient.post(`${this.ENDPOINT_URL}?delay=3`, user, {
+      headers: {
+        [this.ENDPOINT_API_HEADER]: this.ENDPOINT_API_KEY,
+      },
+    }) as Observable<IUserCreated>;
   }
 }
