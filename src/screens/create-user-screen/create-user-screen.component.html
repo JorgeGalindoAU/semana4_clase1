@@ -10,15 +10,31 @@
     {
     <div class="container">
         <div class="row">
-            <h2 class="text-center fw-bold text-primary">Crear un nuevo usuario</h2>
+            <h2 class="text-center fw-bold text-primary">Usuario {{this.userCreated()?.name}} creado correctamente</h2>
         </div>
         <br>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{this.userCreated()?.name ?? 'NO USER'}}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">{{this.userCreated()?.job}}</h6>
-                <p class="card-text">Identificador: {{this.userCreated()?.id}}</p>
-                <p class="card-text">{{this.userCreated()?.createdAt | date:'MMM d, y, HH:mm:ss'}}</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ this.userCreated()?.name ?? 'NO USER' }}</h2>
+                            <h3 class="card-subtitle mb-2 text-body-secondary">{{ this.userCreated()?.job }}</h3>
+
+                            <div class="d-flex justify-content-end gap-2">
+                                <small
+                                    class="d-inline-flex mb-3 px-2 py-1 fw-semibold text-success-emphasis bg-primary-subtle border border-primary-subtle rounded-2">
+                                    ID: {{ this.userCreated()?.id }}
+                                </small>
+                                <small
+                                    class="d-inline-flex mb-3 px-2 py-1 fw-semibold text-success-emphasis bg-success-subtle border border-success-subtle rounded-2">
+                                    {{ this.userCreated()?.createdAt | date:'MMM d, y, HH:mm:ss' }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
